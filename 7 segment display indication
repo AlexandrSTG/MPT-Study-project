@@ -1,0 +1,214 @@
+#ifndef LEDINDICATOR_H
+#define LEDINDICATOR_H
+
+#define	INDICATORS_TYPE		'A'
+
+#define LED0_RCC_FUNC			RCC_AHB1PeriphClockCmd
+#define LED0_RCC					RCC_AHB1Periph_GPIOE
+#define LED0_PIN					GPIO_Pin_7
+#define LED0_PORT					GPIOE
+
+#define LED1_RCC_FUNC			RCC_AHB1PeriphClockCmd
+#define LED1_RCC					RCC_AHB1Periph_GPIOE
+#define LED1_PIN					GPIO_Pin_8
+#define LED1_PORT					GPIOE
+
+#define LED2_RCC_FUNC			RCC_AHB1PeriphClockCmd
+#define LED2_RCC					RCC_AHB1Periph_GPIOE
+#define LED2_PIN					GPIO_Pin_9
+#define LED2_PORT					GPIOE
+
+#define LED3_RCC_FUNC			RCC_AHB1PeriphClockCmd
+#define LED3_RCC					RCC_AHB1Periph_GPIOE
+#define LED3_PIN					GPIO_Pin_10
+#define LED3_PORT					GPIOE
+
+#define LED4_RCC_FUNC			RCC_AHB1PeriphClockCmd
+#define LED4_RCC					RCC_AHB1Periph_GPIOE
+#define LED4_PIN					GPIO_Pin_11
+#define LED4_PORT					GPIOE
+
+#define LED5_RCC_FUNC			RCC_AHB1PeriphClockCmd
+#define LED5_RCC					RCC_AHB1Periph_GPIOE
+#define LED5_PIN					GPIO_Pin_12
+#define LED5_PORT					GPIOE
+
+#define LED6_RCC_FUNC			RCC_AHB1PeriphClockCmd
+#define LED6_RCC					RCC_AHB1Periph_GPIOE
+#define LED6_PIN					GPIO_Pin_13
+#define LED6_PORT					GPIOE
+
+#define IND0_RCC_FUNC			RCC_AHB1PeriphClockCmd
+#define IND0_RCC					RCC_AHB1Periph_GPIOE
+#define IND0_PIN					GPIO_Pin_3
+#define IND0_PORT					GPIOE
+
+#define IND1_RCC_FUNC			RCC_AHB1PeriphClockCmd
+#define IND1_RCC					RCC_AHB1Periph_GPIOE
+#define IND1_PIN					GPIO_Pin_4
+#define IND1_PORT					GPIOE
+
+#define IND2_RCC_FUNC			RCC_AHB1PeriphClockCmd
+#define IND2_RCC					RCC_AHB1Periph_GPIOE
+#define IND2_PIN					GPIO_Pin_5
+#define IND2_PORT					GPIOE
+
+#define IND3_RCC_FUNC			RCC_AHB1PeriphClockCmd
+#define IND3_RCC					RCC_AHB1Periph_GPIOE
+#define IND3_PIN					GPIO_Pin_6
+#define IND3_PORT					GPIOE
+
+
+#define IND0_HIGH					GPIO_SetBits(IND0_PORT, IND0_PIN)
+#define IND0_LOW					GPIO_ResetBits(IND0_PORT, IND0_PIN)
+
+#define IND1_HIGH					GPIO_SetBits(IND1_PORT, IND1_PIN)
+#define IND1_LOW					GPIO_ResetBits(IND1_PORT, IND1_PIN)
+
+#define IND2_HIGH					GPIO_SetBits(IND2_PORT, IND1_PIN)
+#define IND2_LOW					GPIO_ResetBits(IND2_PORT, IND1_PIN)
+
+#define IND3_HIGH					GPIO_SetBits(IND3_PORT, IND1_PIN)
+#define IND3_LOW					GPIO_ResetBits(IND3_PORT, IND1_PIN)
+
+
+#define LED0_HIGH					GPIO_SetBits(LED0_PORT, LED0_PIN)
+#define LED0_LOW					GPIO_ResetBits(LED0_PORT, LED0_PIN)
+
+#define LED1_HIGH					GPIO_SetBits(LED1_PORT, LED1_PIN)
+#define LED1_LOW					GPIO_ResetBits(LED1_PORT, LED1_PIN)
+
+#define LED2_HIGH					GPIO_SetBits(LED2_PORT, LED2_PIN)
+#define LED2_LOW					GPIO_ResetBits(LED2_PORT, LED2_PIN)
+
+#define LED3_HIGH					GPIO_SetBits(LED3_PORT, LED3_PIN)
+#define LED3_LOW					GPIO_ResetBits(LED3_PORT, LED3_PIN)
+
+#define LED4_HIGH					GPIO_SetBits(LED4_PORT, LED4_PIN)
+#define LED4_LOW					GPIO_ResetBits(LED4_PORT, LED4_PIN)
+
+#define LED5_HIGH					GPIO_SetBits(LED5_PORT, LED5_PIN)
+#define LED5_LOW					GPIO_ResetBits(LED5_PORT, LED5_PIN)
+
+#define LED6_HIGH					GPIO_SetBits(LED6_PORT, LED6_PIN)
+#define LED6_LOW					GPIO_ResetBits(LED6_PORT, LED6_PIN)
+
+char IndData[3]={0};
+char IndCount=0;
+
+void Indikator_ini(void)
+{
+	GPIO_InitTypeDef GPIO_Init_LED;
+	
+	LED0_RCC_FUNC(LED0_RCC, ENABLE);
+	
+	GPIO_Init_LED.GPIO_Pin = LED0_PIN;
+	GPIO_Init_LED.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_Init_LED.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_Init_LED.GPIO_OType = GPIO_OType_PP;
+	GPIO_Init_LED.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	
+	GPIO_Init(LED0_PORT, &GPIO_Init_LED);
+	
+	LED1_RCC_FUNC(LED1_RCC, ENABLE);
+	
+	GPIO_Init_LED.GPIO_Pin = LED1_PIN;
+	GPIO_Init_LED.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_Init_LED.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_Init_LED.GPIO_OType = GPIO_OType_PP;
+	GPIO_Init_LED.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	
+	GPIO_Init(LED1_PORT, &GPIO_Init_LED);
+	
+	LED2_RCC_FUNC(LED2_RCC, ENABLE);
+	
+	GPIO_Init_LED.GPIO_Pin = LED2_PIN;
+	GPIO_Init_LED.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_Init_LED.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_Init_LED.GPIO_OType = GPIO_OType_PP;
+	GPIO_Init_LED.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	
+	GPIO_Init(LED2_PORT, &GPIO_Init_LED);
+	
+	LED3_RCC_FUNC(LED3_RCC, ENABLE);
+	
+	GPIO_Init_LED.GPIO_Pin = LED3_PIN;
+	GPIO_Init_LED.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_Init_LED.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_Init_LED.GPIO_OType = GPIO_OType_PP;
+	GPIO_Init_LED.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	
+	GPIO_Init(LED3_PORT, &GPIO_Init_LED);
+	
+	LED4_RCC_FUNC(LED4_RCC, ENABLE);
+	
+	GPIO_Init_LED.GPIO_Pin = LED4_PIN;
+	GPIO_Init_LED.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_Init_LED.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_Init_LED.GPIO_OType = GPIO_OType_PP;
+	GPIO_Init_LED.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	
+	GPIO_Init(LED4_PORT, &GPIO_Init_LED);
+	
+	LED5_RCC_FUNC(LED5_RCC, ENABLE);
+	
+	GPIO_Init_LED.GPIO_Pin = LED5_PIN;
+	GPIO_Init_LED.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_Init_LED.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_Init_LED.GPIO_OType = GPIO_OType_PP;
+	GPIO_Init_LED.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	
+	GPIO_Init(LED5_PORT, &GPIO_Init_LED);
+	
+	LED6_RCC_FUNC(LED6_RCC, ENABLE);
+	
+	GPIO_Init_LED.GPIO_Pin = LED6_PIN;
+	GPIO_Init_LED.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_Init_LED.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_Init_LED.GPIO_OType = GPIO_OType_PP;
+	GPIO_Init_LED.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	
+	GPIO_Init(LED6_PORT, &GPIO_Init_LED);
+	
+	IND0_RCC_FUNC(IND0_RCC, ENABLE);
+	
+	GPIO_Init_LED.GPIO_Pin = IND0_PIN;
+	GPIO_Init_LED.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_Init_LED.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_Init_LED.GPIO_OType = GPIO_OType_PP;
+	GPIO_Init_LED.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	
+	GPIO_Init(IND0_PORT, &GPIO_Init_LED);
+	
+	IND1_RCC_FUNC(IND1_RCC, ENABLE);
+	
+	GPIO_Init_LED.GPIO_Pin = IND1_PIN;
+	GPIO_Init_LED.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_Init_LED.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_Init_LED.GPIO_OType = GPIO_OType_PP;
+	GPIO_Init_LED.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	
+	GPIO_Init(IND1_PORT, &GPIO_Init_LED);
+
+	IND2_RCC_FUNC(IND2_RCC, ENABLE);
+	
+	GPIO_Init_LED.GPIO_Pin = IND2_PIN;
+	GPIO_Init_LED.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_Init_LED.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_Init_LED.GPIO_OType = GPIO_OType_PP;
+	GPIO_Init_LED.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	
+	GPIO_Init(IND2_PORT, &GPIO_Init_LED);
+
+	IND3_RCC_FUNC(IND3_RCC, ENABLE);
+	
+	GPIO_Init_LED.GPIO_Pin = IND3_PIN;
+	GPIO_Init_LED.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_Init_LED.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_Init_LED.GPIO_OType = GPIO_OType_PP;
+	GPIO_Init_LED.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	
+	GPIO_Init(IND3_PORT, &GPIO_Init_LED);
+
+
+}

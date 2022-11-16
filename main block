@@ -1,0 +1,286 @@
+#include "stm32f4xx.h"
+#include "stm32f4xx_gpio.h"
+#include "stm32f4xx_rcc.h"
+#include "system_stm32f4xx.h"
+#include "stm32f4xx_adc.h"
+#include "stm32f4xx_tim.h"
+#include "stm32f4xx_usart.h"
+#include "misc.h"
+
+void delay_ms (volatile uint32_t tick)
+{
+	for (uint32_t i=0; i<tick;i++);
+}
+  
+uint16_t data_adc;
+uint16_t data_m;
+char16_t tisyachi, sotni, desyatki, edenici;
+uint8_t Recieve_buf[256];
+void ADC_IRQHandler(void)
+{
+	if (ADC_GetITStatus(ADC1, ADC_IT_EOC) == SET)
+	{
+		ADC_ClearITPendingBit(ADC1, ADC_IT_EOC);
+		
+		data_adc = ADC_GetConversionValue(ADC1);
+		data_m=(2800* data_adc)/5000;
+                            float data_mm= Unit16ToFloat(data_m,ffFixed,4,0);
+                             tisyachi=FloatToChar((data_mm/1000),ffFixed,1,0);
+                            sotni = FloatToChar((data_mm- tisyachi*1000)/100),ffFixed,1,0);
+                            desyatki = FloatToChar((data_mm- (tisyachi*1000+ sotni*100))/10),ffFixed,1,0);
+                            edenici = desyatki = FloatToChar((data_m- (tisyachi*1000+ sotni*100+ desyatki*10))),ffFixed,1,0);
+void SelInd(0);
+void SetNum(char  tisyachi);
+void SelInd(1);
+void SetNum(char  sotni);
+void SelInd(2);
+void SetNum(char desyatki);
+void SelInd(3);
+void SetNum(char edenici);
+	}
+}
+
+void SetNum(char Num)
+{
+#if INDICATORS_TYPE == 'A'	
+	if (Num == '0')
+	{
+		LED0_HIGH;
+		LED1_LOW;
+		LED2_HIGH;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_HIGH;
+		LED6_HIGH;
+		LED7_HIGH;
+	} else if (Num == '1') {
+		LED0_LOW;
+		LED1_LOW;
+		LED2_LOW;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_LOW;
+		LED6_LOW;
+		LED7_HIGH;
+	} else if (Num == '2'){
+		LED0_LOW;
+		LED1_HIGH;
+		LED2_HIGH;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_HIGH;
+		LED6_HIGH;
+		LED7_LOW;
+	} else if (Num == '3') {
+		LED0_LOW;
+		LED1_HIGH;
+		LED2_HIGH;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_LOW;
+		LED6_HIGH;
+		LED7_HIGH;
+	} else if (Num == '4'){
+		LED0_HIGH;
+		LED1_HIGH;
+		LED2_LOW;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_LOW;
+		LED6_LOW;
+		LED7_HIGH;
+	} else if (Num == '5'){
+		LED0_HIGH;
+		LED1_HIGH;
+		LED2_HIGH;
+		LED3_LOW;
+		LED4_LOW;
+		LED5_LOW;
+		LED6_HIGH;
+		LED7_HIGH;
+	} else if (Num == '6'){
+		LED0_HIGH;
+		LED1_HIGH;
+		LED2_HIGH;
+		LED3_LOW;
+		LED4_LOW;
+		LED5_HIGH;
+		LED6_HIGH;
+		LED7_HIGH;
+	} else if (Num == '7'){
+		LED0_LOW;
+		LED1_LOW;
+		LED2_HIGH;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_LOW;
+		LED6_LOW;
+		LED7_HIGH;
+	} else if (Num == '8'){
+		LED0_HIGH;
+		LED1_HIGH;
+		LED2_HIGH;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_HIGH;
+		LED6_HIGH;
+		LED7_HIGH;
+	} else if (Num == '9'){
+		LED0_HIGH;
+		LED1_HIGH;
+		LED2_HIGH;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_LOW;
+		LED6_HIGH;
+		LED7_HIGH;
+	}
+#else
+		if (Num == '0')
+	{
+		LED0_HIGH;
+		LED1_LOW;
+		LED2_HIGH;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_HIGH;
+		LED6_HIGH;
+		LED7_HIGH;
+	} else if (Num == '1') {
+		LED0_LOW;
+		LED1_LOW;
+		LED2_LOW;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_LOW;
+		LED6_LOW;
+		LED7_HIGH;
+	} else if (Num == '2'){
+		LED0_LOW;
+		LED1_HIGH;
+		LED2_HIGH;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_HIGH;
+		LED6_HIGH;
+		LED7_LOW;
+	} else if (Num == '3') {
+		LED0_LOW;
+		LED1_HIGH;
+		LED2_HIGH;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_LOW;
+		LED6_HIGH;
+		LED7_HIGH;
+	} else if (Num == '4'){
+		LED0_HIGH;
+		LED1_HIGH;
+		LED2_LOW;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_LOW;
+		LED6_LOW;
+		LED7_HIGH;
+	} else if (Num == '5'){
+		LED0_HIGH;
+		LED1_HIGH;
+		LED2_HIGH;
+		LED3_LOW;
+		LED4_LOW;
+		LED5_LOW;
+		LED6_HIGH;
+		LED7_HIGH;
+	} else if (Num == '6'){
+		LED0_HIGH;
+		LED1_HIGH;
+		LED2_HIGH;
+		LED3_LOW;
+		LED4_LOW;
+		LED5_HIGH;
+		LED6_HIGH;
+		LED7_HIGH;
+	} else if (Num == '7'){
+		LED0_LOW;
+		LED1_LOW;
+		LED2_HIGH;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_LOW;
+		LED6_LOW;
+		LED7_HIGH;
+	} else if (Num == '8'){
+		LED0_HIGH;
+		LED1_HIGH;
+		LED2_HIGH;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_HIGH;
+		LED6_HIGH;
+		LED7_HIGH;
+	} else if (Num == '9'){
+		LED0_HIGH;
+		LED1_HIGH;
+		LED2_HIGH;
+		LED3_HIGH;
+		LED4_LOW;
+		LED5_LOW;
+		LED6_HIGH;
+		LED7_HIGH;
+	}
+#endif
+}
+void SelInd(uint8_t num)
+{
+	if (num == 0)
+	{
+		IND0_LOW;
+		IND1_HIGH;
+	} else if (num == 1) {
+		IND0_HIGH;
+		IND1_LOW;
+	} else if (num == 2) {
+		IND0_HIGH;
+		IND1_LOW;
+	} else if (num == 3) {
+		IND0_HIGH;
+		IND1_LOW;
+	}
+
+
+}
+
+void USART2_IRQHandler(void)
+{
+	if (USART_GetITStatus(USART2, USART_IT_TXE) == SET)
+	{
+		USART_ClearITPendingBit(USART2, USART_IT_TXE);
+		
+		if (Recieve_buf!= 0)
+		{
+			USART_SendData(USART2, tisyachi);
+                                           USART_SendData(USART2, sotni);
+                                           USART_SendData(USART2, desyatki);
+                                           USART_SendData(USART2, edinici);
+		}
+	}
+	if (USART_GetITStatus(USART2, USART_IT_RXNE) == SET)
+	{
+		USART_ClearITPendingBit(USART2, USART_IT_RXNE);
+		
+		Recieve_buf = USART_ReceiveData(USART2);
+	}
+}
+
+int main(void)
+{  
+	ADC_ini();
+              Indicator_ini();
+              USART_ini(void);
+
+	while(1)
+	{
+		delay_ms(1000);
+		ADC_SoftwareStartConv(ADC1);
+	}
+}
